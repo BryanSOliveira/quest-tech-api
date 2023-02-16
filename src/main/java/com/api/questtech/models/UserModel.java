@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,10 +18,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_user", schema = "account")
 public class UserModel implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1L;
 	
@@ -40,9 +42,12 @@ public class UserModel implements Serializable, UserDetails {
 	@Column(nullable = false)
 	private String password;
 	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private PlayerModel player;
+	
 	@ManyToMany
-    @JoinTable(name = "tb_users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "tb_users_roles", schema = "account",
+    		joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleModel> roles = new HashSet<>();
 	
@@ -99,6 +104,14 @@ public class UserModel implements Serializable, UserDetails {
 
 	public Set<RoleModel> getRoles() {
 		return roles;
+	}
+
+	public PlayerModel getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(PlayerModel player) {
+		this.player = player;
 	}
 
 	@Override

@@ -1,11 +1,12 @@
 package com.api.questtech.controllers;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +33,15 @@ public class UserController {
 	UserService service;
 
 	@GetMapping
-	public ResponseEntity<List<UserOutDTO>> findAll() {
-		List<UserModel> list = service.findAll();
-		List<UserOutDTO> usersOut = list.stream().map(userModel -> new UserOutDTO(userModel)).collect(Collectors.toList());
+	public ResponseEntity<Page<UserOutDTO>> findAll(Pageable pageable) {
+		Page<UserModel> list = service.findAll(pageable);
+		Page<UserOutDTO> usersOut = list.map(new Function<UserModel, UserOutDTO>() {
+			@Override
+			public UserOutDTO apply(UserModel user) {
+				UserOutDTO dto = new UserOutDTO(user);
+		        return dto;
+			}
+		});
 		return ResponseEntity.ok().body(usersOut);
 	}
 	
