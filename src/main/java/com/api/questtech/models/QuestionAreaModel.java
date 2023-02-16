@@ -16,7 +16,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_question_area", schema = "game")
+@Table(name = "tb_question_area")
 public class QuestionAreaModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 

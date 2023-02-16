@@ -17,7 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_game", schema = "game")
+@Table(name = "tb_game")
 public class GameModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,13 +30,13 @@ public class GameModel implements Serializable {
 	private GameModeModel mode;
 	
 	@ManyToMany
-	@JoinTable(name = "tb_game_player", schema = "game",
+	@JoinTable(name = "tb_game_player",
 			joinColumns = @JoinColumn(name = "game_id"), 
 			inverseJoinColumns = @JoinColumn(name = "player_id"))
 	private List<PlayerModel> players = new ArrayList<>();
 	
 	@ManyToMany
-	@JoinTable(name = "tb_game_question", schema = "game",
+	@JoinTable(name = "tb_game_question",
 			joinColumns = @JoinColumn(name = "game_id"), 
 			inverseJoinColumns = @JoinColumn(name = "question_id"))
 	private List<QuestionModel> questions = new ArrayList<>();

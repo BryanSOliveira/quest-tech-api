@@ -16,7 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_role", schema = "account")
+@Table(name = "tb_role")
 public class RoleModel implements Serializable, GrantedAuthority {
 
 	private static final long serialVersionUID = 1L;

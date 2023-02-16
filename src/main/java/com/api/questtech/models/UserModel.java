@@ -22,7 +22,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_user", schema = "account")
+@Table(name = "tb_user")
 public class UserModel implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1L;
 	
@@ -46,7 +46,7 @@ public class UserModel implements Serializable, UserDetails {
 	private PlayerModel player;
 	
 	@ManyToMany
-    @JoinTable(name = "tb_users_roles", schema = "account",
+    @JoinTable(name = "tb_users_roles",
     		joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleModel> roles = new HashSet<>();

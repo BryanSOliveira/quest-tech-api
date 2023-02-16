@@ -20,7 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_question", schema = "game")
+@Table(name = "tb_question")
 public class QuestionModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,7 +32,7 @@ public class QuestionModel implements Serializable {
 	private String question;
 	
 	@ManyToMany
-	@JoinTable(name = "tb_question_alternative", schema = "game",
+	@JoinTable(name = "tb_question_alternative",
 	joinColumns = @JoinColumn(name = "question_id"), 
 	inverseJoinColumns = @JoinColumn(name = "alternative_id"))
 	List<AnswerModel> alternatives = new ArrayList<>();

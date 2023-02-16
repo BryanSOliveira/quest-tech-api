@@ -19,7 +19,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_player", schema = "game")
+@Table(name = "tb_player")
 public class PlayerModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 

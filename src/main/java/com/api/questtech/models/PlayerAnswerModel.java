@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_player_answer", schema = "game")
+@Table(name = "tb_player_answer")
 public class PlayerAnswerModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 

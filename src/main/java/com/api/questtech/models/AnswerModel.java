@@ -17,7 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_answer", schema = "game")
+@Table(name = "tb_answer")
 public class AnswerModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
