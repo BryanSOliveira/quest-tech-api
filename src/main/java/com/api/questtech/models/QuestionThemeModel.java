@@ -29,7 +29,6 @@ public class QuestionThemeModel implements Serializable {
 	@Column(nullable = false)
 	private String name;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "area_id")
 	private QuestionAreaModel area;

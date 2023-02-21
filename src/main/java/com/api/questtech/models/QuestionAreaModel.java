@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class QuestionAreaModel implements Serializable {
 	@Column(nullable = false)
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "area")
 	private List<QuestionThemeModel> themes = new ArrayList<>();
 	
