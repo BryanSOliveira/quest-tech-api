@@ -42,8 +42,8 @@ public class QuestionModel implements Serializable {
 	private List<GameModel> games = new ArrayList<>();
 	
 	@ManyToOne
-	@JoinColumn(name = "area_id")
-	private QuestionAreaModel area;
+	@JoinColumn(name = "theme_id")
+	private QuestionThemeModel theme;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "question")
@@ -56,10 +56,10 @@ public class QuestionModel implements Serializable {
 	public QuestionModel() {
 	}
 
-	public QuestionModel(Long id, String question, QuestionAreaModel area, AnswerModel answer) {
+	public QuestionModel(Long id, String question, QuestionThemeModel theme, AnswerModel answer) {
 		this.id = id;
 		this.question = question;
-		this.area = area;
+		this.theme = theme;
 		this.answer = answer;
 	}
 
@@ -87,12 +87,12 @@ public class QuestionModel implements Serializable {
 		return games;
 	}
 
-	public QuestionAreaModel getArea() {
-		return area;
+	public QuestionThemeModel getTheme() {
+		return theme;
 	}
 
-	public void setArea(QuestionAreaModel area) {
-		this.area = area;
+	public void setTheme(QuestionThemeModel theme) {
+		this.theme = theme;
 	}
 
 	public AnswerModel getAnswer() {

@@ -14,6 +14,7 @@ import com.api.questtech.models.PlayerModel;
 import com.api.questtech.models.QuestionAreaModel;
 import com.api.questtech.models.QuestionModel;
 import com.api.questtech.models.RoleModel;
+import com.api.questtech.models.QuestionThemeModel;
 import com.api.questtech.models.UserModel;
 import com.api.questtech.models.enums.RoleName;
 import com.api.questtech.repositories.AnswerRepository;
@@ -24,6 +25,7 @@ import com.api.questtech.repositories.PlayerRepository;
 import com.api.questtech.repositories.QuestionAreaRepository;
 import com.api.questtech.repositories.QuestionRepository;
 import com.api.questtech.repositories.RoleRepository;
+import com.api.questtech.repositories.QuestionThemeRepository;
 import com.api.questtech.repositories.UserRepository;
 
 @Configuration
@@ -56,6 +58,9 @@ public class DevInstantiation implements CommandLineRunner {
 	
 	@Autowired
 	private PlayerRepository playerRepository;
+	
+	@Autowired
+	private QuestionThemeRepository themeRepository;
 
 	@Override
 	
@@ -70,6 +75,7 @@ public class DevInstantiation implements CommandLineRunner {
 		playerRepository.deleteAll();
 		userRepository.deleteAll();
 		roleRepository.deleteAll();
+		themeRepository.deleteAll();
 		questionAreaRepository.deleteAll();
 		
 		RoleModel role1 = new RoleModel(null, RoleName.USER);
@@ -85,13 +91,16 @@ public class DevInstantiation implements CommandLineRunner {
 		QuestionAreaModel questionArea1 = new QuestionAreaModel(null, "Front-end");
 		questionAreaRepository.save(questionArea1);
 		
-		GameModeModel gameMode1 = new GameModeModel(null, "Sobrevivência");
+		QuestionThemeModel questionTheme1 = new QuestionThemeModel(null, "Javascript", questionArea1);
+		themeRepository.save(questionTheme1);
+		
+		GameModeModel gameMode1 = new GameModeModel(null, "Singleplayer");
 		gameModeRepository.save(gameMode1);
 		
 		AnswerModel answer1 = new AnswerModel(null, "HyperText Markup Language");
 		answerRepository.save(answer1);
 		
-		QuestionModel question1 = new QuestionModel(null, "O que significa HTML?", questionArea1, answer1);
+		QuestionModel question1 = new QuestionModel(null, "O que significa HTML?", questionTheme1, answer1);
 		question1.getAlternatives().add(answer1);
 		question1.getPlayersAnswers().add(null);
 		questionRepository.save(question1);

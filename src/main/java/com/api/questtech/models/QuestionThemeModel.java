@@ -5,17 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_question_area")
-public class QuestionAreaModel implements Serializable {
+@Table(name = "tb_question_theme")
+public class QuestionThemeModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,15 +29,22 @@ public class QuestionAreaModel implements Serializable {
 	@Column(nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "area")
-	private List<QuestionThemeModel> themes = new ArrayList<>();
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "area_id")
+	private QuestionAreaModel area;
 	
-	public QuestionAreaModel() {
+	@JsonIgnore
+	@OneToMany(mappedBy = "theme")
+	private List<QuestionModel> questions = new ArrayList<>();
+	
+	public QuestionThemeModel() {
 	}
 
-	public QuestionAreaModel(Long id, String name) {
+	public QuestionThemeModel(Long id, String name, QuestionAreaModel area) {
 		this.id = id;
 		this.name = name;
+		this.area = area;
 	}
 
 	public Long getId() {
@@ -52,8 +63,16 @@ public class QuestionAreaModel implements Serializable {
 		this.name = name;
 	}
 
-	public List<QuestionThemeModel> getThemes() {
-		return themes;
+	public QuestionAreaModel getArea() {
+		return area;
+	}
+
+	public void setArea(QuestionAreaModel area) {
+		this.area = area;
+	}
+
+	public List<QuestionModel> getQuestions() {
+		return questions;
 	}
 
 	@Override
@@ -69,7 +88,7 @@ public class QuestionAreaModel implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		QuestionAreaModel other = (QuestionAreaModel) obj;
+		QuestionThemeModel other = (QuestionThemeModel) obj;
 		return Objects.equals(id, other.id);
 	}
 }
