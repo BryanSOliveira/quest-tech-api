@@ -94,7 +94,7 @@ public class DevInstantiation implements CommandLineRunner {
 		QuestionThemeModel questionTheme1 = new QuestionThemeModel(null, "Javascript", questionArea1);
 		themeRepository.save(questionTheme1);
 		
-		GameModeModel gameMode1 = new GameModeModel(null, "Singleplayer");
+		GameModeModel gameMode1 = new GameModeModel(null, "Singleplayer", true);
 		gameModeRepository.save(gameMode1);
 		
 		AnswerModel answer1 = new AnswerModel(null, "HyperText Markup Language");

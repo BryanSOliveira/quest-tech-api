@@ -37,5 +37,8 @@ public class GameModeService {
 
 	private void updateData(GameModeModel modeModel, GameModeModel mode) {
 		modeModel.setName(mode.getName());
+		if(mode.getSingleplayer() != modeModel.getSingleplayer()) {
+			modeModel.setSingleplayer(mode.getSingleplayer());
+		}
 	}
 }

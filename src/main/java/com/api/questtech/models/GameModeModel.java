@@ -31,12 +31,16 @@ public class GameModeModel implements Serializable {
 	@OneToMany(mappedBy = "mode")
 	private List<GameModel> games = new ArrayList<>();
 	
+	@Column(columnDefinition = "boolean default false")
+	private boolean singleplayer;
+	
 	public GameModeModel() {
 	}
 
-	public GameModeModel(Long id, String name) {
+	public GameModeModel(Long id, String name, boolean singleplayer) {
 		this.id = id;
 		this.name = name;
+		this.singleplayer = singleplayer;
 	}
 
 	public Long getId() {
@@ -61,6 +65,14 @@ public class GameModeModel implements Serializable {
 
 	public void setGames(List<GameModel> games) {
 		this.games = games;
+	}
+
+	public boolean getSingleplayer() {
+		return singleplayer;
+	}
+
+	public void setSingleplayer(boolean singleplayer) {
+		this.singleplayer = singleplayer;
 	}
 
 	@Override
