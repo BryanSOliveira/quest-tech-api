@@ -33,18 +33,18 @@ public class QuestionThemeController {
 	@GetMapping
 	public ResponseEntity<List<QuestionThemeDTO>> findAll() {
 		List<QuestionThemeModel> list = service.findAll();
-		List<QuestionThemeDTO> modesDto = list.stream().map(modeModel -> new QuestionThemeDTO(modeModel)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(modesDto);
+		List<QuestionThemeDTO> themesDto = list.stream().map(themeModel -> new QuestionThemeDTO(themeModel)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(themesDto);
 	}
 	
 	@PostMapping
-	public ResponseEntity<QuestionThemeDTO> insert(@RequestBody @Valid QuestionThemeDTO mode) {
-		QuestionThemeModel modeModel = new QuestionThemeModel();
-		BeanUtils.copyProperties(mode, modeModel);
-		modeModel = service.insert(modeModel);
-		BeanUtils.copyProperties(modeModel, mode);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(mode.getId()).toUri();
-		return ResponseEntity.created(uri).body(mode);
+	public ResponseEntity<QuestionThemeDTO> insert(@RequestBody @Valid QuestionThemeDTO theme) {
+		QuestionThemeModel themeModel = new QuestionThemeModel();
+		BeanUtils.copyProperties(theme, themeModel);
+		themeModel = service.insert(themeModel);
+		BeanUtils.copyProperties(themeModel, theme);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(theme.getId()).toUri();
+		return ResponseEntity.created(uri).body(theme);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -54,11 +54,11 @@ public class QuestionThemeController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<QuestionThemeDTO> update(@PathVariable Long id, @RequestBody @Valid QuestionThemeDTO mode) {
-		QuestionThemeModel modeModel = new QuestionThemeModel();
-		BeanUtils.copyProperties(mode, modeModel);
-		modeModel = service.update(id, modeModel);
-		BeanUtils.copyProperties(modeModel, mode);
-		return ResponseEntity.ok().body(mode);
+	public ResponseEntity<QuestionThemeDTO> update(@PathVariable Long id, @RequestBody @Valid QuestionThemeDTO theme) {
+		QuestionThemeModel themeModel = new QuestionThemeModel();
+		BeanUtils.copyProperties(theme, themeModel);
+		themeModel = service.update(id, themeModel);
+		BeanUtils.copyProperties(themeModel, theme);
+		return ResponseEntity.ok().body(theme);
 	}
 }

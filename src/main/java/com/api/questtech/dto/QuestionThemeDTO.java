@@ -1,7 +1,6 @@
 package com.api.questtech.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.api.questtech.models.QuestionAreaModel;
 import com.api.questtech.models.QuestionThemeModel;
@@ -55,22 +54,5 @@ public class QuestionThemeDTO implements Serializable {
 
 	public void setArea(QuestionAreaModel area) {
 		this.area = area;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		QuestionThemeDTO other = (QuestionThemeDTO) obj;
-		return Objects.equals(id, other.id);
 	}
 }
