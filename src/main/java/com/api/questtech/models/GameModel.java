@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.api.questtech.dto.GameDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -51,6 +53,15 @@ public class GameModel implements Serializable {
 		this.id = id;
 		this.finish = finish;
 		this.mode = mode;
+	}
+	
+	public GameModel(GameDTO gameDto) {
+		this.id = gameDto.getId();
+		this.mode = gameDto.getMode();
+		
+		for (PlayerModel player : gameDto.getPlayers()) {
+			getPlayers().add(player);
+		}
 	}
 
 	public Long getId() {
