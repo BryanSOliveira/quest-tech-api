@@ -38,8 +38,8 @@ public class QuestionModel implements Serializable {
 	List<AnswerModel> alternatives = new ArrayList<>();
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "questions")
-	private List<GameModel> games = new ArrayList<>();
+	@OneToMany(mappedBy = "id.game")
+	private List<GameQuestionModel> games = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "theme_id")
@@ -83,7 +83,7 @@ public class QuestionModel implements Serializable {
 		return alternatives;
 	}
 
-	public List<GameModel> getGames() {
+	public List<GameQuestionModel> getGames() {
 		return games;
 	}
 

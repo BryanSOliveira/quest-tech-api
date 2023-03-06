@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -37,11 +38,8 @@ public class GameModel implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "player_id"))
 	private List<PlayerModel> players = new ArrayList<>();
 	
-	@ManyToMany
-	@JoinTable(name = "tb_game_question",
-			joinColumns = @JoinColumn(name = "game_id"), 
-			inverseJoinColumns = @JoinColumn(name = "question_id"))
-	private List<QuestionModel> questions = new ArrayList<>();
+	@OneToMany(mappedBy = "id.question")
+	private List<GameQuestionModel> questions = new ArrayList<>();
 	
 	@Column(columnDefinition = "boolean default false")
 	private boolean finish;
@@ -92,7 +90,7 @@ public class GameModel implements Serializable {
 		return players;
 	}
 
-	public List<QuestionModel> getQuestions() {
+	public List<GameQuestionModel> getQuestions() {
 		return questions;
 	}
 

@@ -1,5 +1,7 @@
 package com.api.questtech.config;
 
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.api.questtech.models.AnswerModel;
 import com.api.questtech.models.GameModeModel;
 import com.api.questtech.models.GameModel;
+import com.api.questtech.models.GameQuestionModel;
 import com.api.questtech.models.PlayerAnswerModel;
 import com.api.questtech.models.PlayerModel;
 import com.api.questtech.models.QuestionAreaModel;
@@ -19,6 +22,7 @@ import com.api.questtech.models.UserModel;
 import com.api.questtech.models.enums.RoleName;
 import com.api.questtech.repositories.AnswerRepository;
 import com.api.questtech.repositories.GameModeRepository;
+import com.api.questtech.repositories.GameQuestionRepository;
 import com.api.questtech.repositories.GameRepository;
 import com.api.questtech.repositories.PlayerAnswerRepository;
 import com.api.questtech.repositories.PlayerRepository;
@@ -61,13 +65,16 @@ public class DevInstantiation implements CommandLineRunner {
 	
 	@Autowired
 	private QuestionThemeRepository themeRepository;
+	
+	@Autowired
+	private GameQuestionRepository gameQuestionRepository;
 
 	@Override
-	
 	public void run(String... args) throws Exception {
 		final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();	
 		
 		playerAnswerRepository.deleteAll();
+		gameQuestionRepository.deleteAll();
 		gameRepository.deleteAll();
 		gameModeRepository.deleteAll();
 		questionRepository.deleteAll();
@@ -108,9 +115,12 @@ public class DevInstantiation implements CommandLineRunner {
 		PlayerAnswerModel playerAnswer1 = new PlayerAnswerModel(null, player1, question1, answer1);
 		playerAnswerRepository.save(playerAnswer1);
 		
+		
 		GameModel game1 = new GameModel(null, false, gameMode1);
+		GameQuestionModel gameQuestion1 = new GameQuestionModel(game1, question1, Instant.parse("2023-03-06T21:53:07Z"));
+		
 		game1.getPlayers().add(player1);
-		game1.getQuestions().add(question1);
+		game1.getQuestions().add(gameQuestion1);
 		gameRepository.save(game1);
 	}
 
